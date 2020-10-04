@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanArchitecture.US.Common\CleanArchitecture.US.Common.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.US.Domain\CleanArchitecture.US.Domain.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.US.Infrastructure\CleanArchitecture.US.Infrastructure.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.US.ViewModel\CleanArchitecture.US.ViewModel.csproj" />
+  </ItemGroup>
+
+</Project>
