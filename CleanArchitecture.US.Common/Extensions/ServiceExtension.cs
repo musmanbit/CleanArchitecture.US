@@ -48,18 +48,18 @@ namespace CleanArchitecture.US.Common.Extensions
                      ValidateLifetime = true,
                      
                  };
-                /* cfg.Events = new JwtBearerEvents
+                 cfg.Events = new JwtBearerEvents
                  {
                      OnAuthenticationFailed = context =>
                      {
-                         context.Response.StatusCode = 401;// HttpStatusCodes.AuthenticationFailed;
-                         context.Response.ContentType = "application/json";
-                         var err = context.Exception.ToString();
-                         var result = JsonConvert.SerializeObject(new { err });
-                         return context.Response.WriteAsync(result);
+                         if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                         {
+                             context.Response.Headers.Add("Token-Expired", "true");
+                         }
+                         return Task.CompletedTask;
                      }
 
-                 };*/
+                 };
              });
 
             return services;
