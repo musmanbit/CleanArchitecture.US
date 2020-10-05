@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using CleanArchitecture.US.Common.Middleware;
 using Swashbuckle.AspNetCore.Swagger;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace CleanArchitecture.US.Common.Extensions
 {
@@ -29,7 +31,7 @@ namespace CleanArchitecture.US.Common.Extensions
 
             services.AddAuthentication(x =>
             {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;//configuration["Jwt:AuthKey"];// 
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
              .AddJwtBearer(cfg =>
@@ -38,68 +40,46 @@ namespace CleanArchitecture.US.Common.Extensions
                  cfg.SaveToken = true;
                  cfg.TokenValidationParameters = new TokenValidationParameters()
                  {
-                     //ValidateIssuerSigningKey = true,
-                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Encryptionkey"])),
-                     ValidateAudience = false,
-                     ValidateLifetime = true,
                      ValidIssuer = configuration["Jwt:Issuer"],
-                     //ValidAudience = Configuration["Jwt:Audience"],
-                     //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"])),
+                     ValidAudience = configuration["Jwt:Audience"],
+                     ValidateIssuerSigningKey = true,
+                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Encryptionkey"])),
+                     ValidateAudience = true,
+                     ValidateLifetime = true,
+                     
                  };
-                 cfg.Events = new JwtBearerEvents
+                /* cfg.Events = new JwtBearerEvents
                  {
-                     OnTokenValidated = async ctx =>
+                     OnAuthenticationFailed = context =>
                      {
-                         //Stopwatch watch = new Stopwatch();
-                         //watch.Start();
-
-                         var currentUserRoles = ctx.Principal.Claims.Where(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).ToList();
-
-                         try
-                         {
-                             if (currentUserRoles != null && currentUserRoles.Count > 0)
-                             {
-                                 var _issuer = configuration["Jwt:Issuer"].ToString();
-                                 var _originalIssuer = configuration["Jwt:Issuer"].ToString();
-
-
-                                 HashSet<string> userClaims = new HashSet<string>();
-
-                                 //get all claims with role object here.
-                                 //Dictionary<string, HashSet<string>> roleClaimsDictionary = await roleClaimCache.GetBulk("RoleClaims");
-
-                                 //foreach (var role in currentUserRoles)
-                                 //{
-                                 //    if (roleClaimsDictionary.ContainsKey(role.Value))
-                                 //    {
-                                 //        userClaims.UnionWith(roleClaimsDictionary[role.Value]);
-                                 //    }
-                                 //}
-
-                                 var newclaims = new List<Claim>();
-                                 foreach (var userClaim in userClaims)
-                                 {
-                                     newclaims.Add(new Claim(userClaim, string.Empty, ClaimValueTypes.String, issuer: _issuer, originalIssuer: _originalIssuer, subject: ctx.Principal.Identities.First()));
-                                 }
-
-                                 var appIdentity = new ClaimsIdentity(newclaims);
-
-                                 ctx.Principal.AddIdentity(appIdentity);
-                                                                  
-                             }
-                         }
-                         catch (Exception ex)
-                         {
-                             throw new Exception("[Failed in OnTokenValidated for RegisterJWTAuthenticationService] - ex.Message:[" + ex.Message + "] - " + ex.StackTrace);
-                         }
+                         context.Response.StatusCode = 401;// HttpStatusCodes.AuthenticationFailed;
+                         context.Response.ContentType = "application/json";
+                         var err = context.Exception.ToString();
+                         var result = JsonConvert.SerializeObject(new { err });
+                         return context.Response.WriteAsync(result);
                      }
-                 };
+
+                 };*/
              });
 
             return services;
         }
 
+        public static IServiceCollection RegisterPolicies(this IServiceCollection services)
+        {
 
+            //var applicationClaim = new ApplicationClaim();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("defaultpolicy", b =>
+                {
+                    b.RequireAuthenticatedUser();
+                });
+            });
+
+            return services;
+        }
 
 
         /// <summary>

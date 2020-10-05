@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using CleanArchitecture.US.Application.Extensions;
 using CleanArchitecture.US.Common.Extensions;
+using CleanArchitecture.US.Domain;
 using CleanArchitecture.US.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,11 +30,14 @@ namespace CleanArchitecture.US.API.Authentication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddControllers();
-
+            
             services.RegisterApplicationServices();
-
             services.RegisterInfrastructureServices();
+            services.RegisterAuthenticationService(Configuration);
+         
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,14 +49,15 @@ namespace CleanArchitecture.US.API.Authentication
             }
 
             app.UseHttpsRedirection();
-
+         
             app.UseRouting();
 
             //  app.UseSwaggerMiddleware(this.GetType().Namespace);
-            app.UseTokenValidatorMiddleware();
-            app.UseCorsMiddleware();
+            app.UseAuthentication();
+            app.UseAuthorization();
+           
             app.UseExceptionMiddleware();
-
+       
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

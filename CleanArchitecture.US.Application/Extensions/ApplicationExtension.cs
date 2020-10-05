@@ -14,7 +14,8 @@ namespace CleanArchitecture.US.Application.Extensions
         public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IAdminApplication, AdminApplication>();
-            
+            services.AddTransient<IUserApplication, UserApplication>();
+
             return services;
         }
         /// <summary>
@@ -26,3 +27,4 @@ namespace CleanArchitecture.US.Application.Extensions
 
     }
 }
+

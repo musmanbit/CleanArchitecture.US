@@ -18,7 +18,7 @@ using CleanArchitecture.US.Infrastructure.Interface;
 
 namespace CleanArchitecture.US.Application
 {
-     public class AdminApplicationBase:BaseApplication, IBaseApplication<Admin>
+     public class AdminApplicationBase: BaseApplication,IBaseApplication<Admin>
     {
       #region Properties
          private IAdminInfrastructure _adminInfrastructure { get; }

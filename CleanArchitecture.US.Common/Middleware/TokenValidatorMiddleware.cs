@@ -22,7 +22,7 @@ namespace CleanArchitecture.US.Common.Middleware
 
         public object Request { get; private set; }
         public const string ApplicationJsonDataType = "application/json";
-        public const string UserId = "USERID";
+       
 
         #endregion
         #region Constructor
@@ -47,8 +47,6 @@ namespace CleanArchitecture.US.Common.Middleware
         public async Task Invoke(HttpContext context)
         {
             var authorizationHeader = context.Request.Headers["Authorization"];
-            var applicationKey = context.Request.Headers ["x-application-key"];
-            var xUserId = context.Request.Headers["x-Uid"];
            
 
             if (authorizationHeader.Count != 0)
@@ -59,37 +57,7 @@ namespace CleanArchitecture.US.Common.Middleware
 
                 if (userId != 0)
                 {
-                    if (request.Method == "GET")
-                    {
-                        request.QueryString = request.QueryString.Add("CurrentUserId", userId.ToString());
-                    }
-                    else
-                    {
-
-                        try
-                        {
-                            var stream = request.Body;
-                            var originalBody = new StreamReader(stream).ReadToEnd();
-
-                            var dataSource = JsonConvert.DeserializeObject<dynamic>(originalBody);
-
-                            if (dataSource != null)
-                            {
-                                dataSource.CurrentUserId = userId;
-                                var dataSourcejson = JsonConvert.SerializeObject(dataSource);
-                                var requestContent = new StringContent(dataSourcejson, Encoding.UTF8, ApplicationJsonDataType);
-                                //Modified stream
-                                stream = await requestContent.ReadAsStreamAsync();
-                            }
-                            request.Body = stream;
-                        }
-                        catch
-                        {
-
-                        }
-                        // Holds the original stream   
-
-                    }
+                    context.Items["UserID"] = userId.ToString();
                 }
             }
             await this.Next(context);
@@ -119,7 +87,7 @@ namespace CleanArchitecture.US.Common.Middleware
 
                 var decodedToken = new JwtSecurityToken(token);
 
-                userId = decodedToken.Claims.FirstOrDefault(claim => claim.Type == UserId).Value;
+                userId = decodedToken.Claims.FirstOrDefault(claim => claim.Type == Constant.UserId).Value;
             }
             catch (Exception ex)
             {

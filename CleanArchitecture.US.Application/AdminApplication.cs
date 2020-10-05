@@ -17,7 +17,7 @@ namespace CleanArchitecture.US.Application
     {
     #region Constructor
        public AdminApplication(IAdminInfrastructure adminInfrastructure, IConfiguration configuration,
-            ILogger <AdminApplication> logger) : base(adminInfrastructure,configuration, logger)
+            ILogger<AdminApplication> logger) : base(adminInfrastructure,configuration, logger)
       {
       }
     #endregion
