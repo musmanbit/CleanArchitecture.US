@@ -9,14 +9,9 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.US.Common.Middleware
 {
-    /// <summary>
-    /// HeaderValueMiddleware is used to parse header values before requested controller has been invoked.
-    /// </summary>
+
     public class ExceptionMiddleware : BaseMiddleware
     {
-        #region Properties and Data Members
-
-        #endregion
 
         #region Constructor
         /// <summary>
@@ -34,8 +29,7 @@ namespace CleanArchitecture.US.Common.Middleware
         /// <summary>
         /// Invoke method is called when middleware has been called.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="headerValue"></param>
+        /// <param name="context"></param>       
         /// <returns></returns>
         public async Task Invoke(HttpContext context)
         {
@@ -50,38 +44,21 @@ namespace CleanArchitecture.US.Common.Middleware
         }
 
         /// <summary>
-        /// HandleExceptionAsync creates response in case of exception.
+        /// 
         /// </summary>
         /// <param name="context"></param>
         /// <param name="exception"></param>
-        /// <param name="headerValue"></param>
         /// <returns></returns>
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var code = HttpStatusCode.InternalServerError; // 500 if unexpected
 
-            if (exception is EntryPointNotFoundException)
-            {
-                code = HttpStatusCode.NotFound;
-            }
-            else if (exception is AccessViolationException)
-            {
-                code = HttpStatusCode.Forbidden;
-            }
-            else if (exception is UnauthorizedAccessException)
-            {
-                code = HttpStatusCode.Unauthorized;
-            }
-         
-
-            var result = JsonConvert.SerializeObject(new { error = exception.Message });
+            var message = JsonConvert.SerializeObject(new { error = exception.Message });
 
             context.Response.ContentType = Constant.JsonContentType;
-            context.Response.StatusCode = (int)code;
-
-           //todo base.Logger?.LogExeception(exception, headerValue);
-
-            return context.Response.WriteAsync(result);
+            
+            Logger.LogError(exception, message);
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            return context.Response.WriteAsync(message);
         }
         #endregion
     }

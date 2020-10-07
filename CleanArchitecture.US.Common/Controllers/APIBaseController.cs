@@ -22,7 +22,7 @@ namespace CleanArchitecture.US.Common.Controllers
         protected ILogger Logger { get; }
         protected bool UseDefaultLanguage { get; }
         #endregion
-        public APIBaseController(IConfiguration configuration, ILogger logger) {
+        protected APIBaseController(IConfiguration configuration, ILogger logger) {
             this.Configuration = configuration;
             this.Logger = logger;
         }

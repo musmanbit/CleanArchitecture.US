@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
@@ -14,33 +13,28 @@ namespace CleanArchitecture.US.Infrastructure
         {
             this.Configuration = configuration;
             this.ConnectioName = "DefaultConnectionString";
-            ConnectionStrings = new Dictionary<string, string>() {
-                { "DefaultConnectionString",  this.Configuration.GetConnectionString("DefaultConnectionString")}
-            };
+            ConnectionStrings = this.Configuration.GetConnectionString("DefaultConnectionString");
 
             this.Logger = logger;
 
-            //this.Logger?.LogEnterConstructor(this.GetType());
         }
         protected SqlBaseInfrastructure(IConfiguration configuration)
         {
             this.Configuration = configuration;
             this.ConnectioName = "DefaultConnectionString";
-            ConnectionStrings = new Dictionary<string, string>() {
-                { "DefaultConnectionString",  this.Configuration.GetConnectionString("DefaultConnectionString")}
-            };
+            ConnectionStrings = this.Configuration.GetConnectionString("DefaultConnectionString");
         }
         protected IConfiguration Configuration { get; }
         public ILogger Logger { get; }
        
         protected string DefaultConnection;
 
-        protected static Dictionary<string, string> ConnectionStrings;
+        private string  ConnectionStrings;
         public string ConnectioName { get; set; }
 
         protected string GetConnectionString()
         {
-            return ConnectionStrings[ConnectioName];
+            return ConnectionStrings;
         }
 
         /// <summary>

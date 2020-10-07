@@ -63,11 +63,6 @@ namespace CleanArchitecture.US.Common.Middleware
             await this.Next(context);
         }
 
-        private string GetHeaderValue(IHeaderDictionary headers, string key)
-        {
-            return headers[key];
-        }
-
         /// <summary>
         /// GetUserIdFromToken returns the User Id from the token.
         /// </summary>
