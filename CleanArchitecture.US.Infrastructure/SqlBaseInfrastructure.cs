@@ -12,7 +12,6 @@ namespace CleanArchitecture.US.Infrastructure
         protected SqlBaseInfrastructure(IConfiguration configuration, ILogger logger)
         {
             this.Configuration = configuration;
-            this.ConnectioName = "DefaultConnectionString";
             ConnectionStrings = this.Configuration.GetConnectionString("DefaultConnectionString");
 
             this.Logger = logger;
@@ -21,16 +20,13 @@ namespace CleanArchitecture.US.Infrastructure
         protected SqlBaseInfrastructure(IConfiguration configuration)
         {
             this.Configuration = configuration;
-            this.ConnectioName = "DefaultConnectionString";
             ConnectionStrings = this.Configuration.GetConnectionString("DefaultConnectionString");
         }
         protected IConfiguration Configuration { get; }
         public ILogger Logger { get; }
        
-        protected string DefaultConnection;
 
-        private string  ConnectionStrings;
-        public string ConnectioName { get; set; }
+        private readonly string  ConnectionStrings;
 
         protected string GetConnectionString()
         {

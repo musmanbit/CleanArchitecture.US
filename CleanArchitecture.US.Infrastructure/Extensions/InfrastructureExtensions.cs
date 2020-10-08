@@ -1,9 +1,5 @@
 ﻿using CleanArchitecture.US.Infrastructure.Interface;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CleanArchitecture.US.Infrastructure.Extensions
 {
@@ -16,6 +12,6 @@ namespace CleanArchitecture.US.Infrastructure.Extensions
 
             return services;
         }
-        
+
     }
 }
