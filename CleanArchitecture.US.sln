@@ -26,11 +26,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		sonarqube.txt = sonarqube.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.US.Tests.Admin", "CleanArchitecture.US.Tests.Admin\CleanArchitecture.US.Tests.Admin.csproj", "{7FF95DD7-5240-4772-92B8-2C461970C4F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Tests.Admin", "Tests\UnitTests\CleanArchitecture.US.Tests.Admin\CleanArchitecture.US.Tests.Admin.csproj", "{7FF95DD7-5240-4772-92B8-2C461970C4F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{45B50875-53DC-472C-A392-29022EE89652}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.US.API.Authentication.IntegrationTest", "CleanArchitecture.US.API.Authentication.IntegrationTest\CleanArchitecture.US.API.Authentication.IntegrationTest.csproj", "{53E96C96-FF44-45A3-B97B-5317936C7515}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.API.Authentication.IntegrationTest", "Tests\IntegrationTests\CleanArchitecture.US.API.Authentication.IntegrationTest\CleanArchitecture.US.API.Authentication.IntegrationTest.csproj", "{53E96C96-FF44-45A3-B97B-5317936C7515}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{623BA06E-E75D-4950-8985-2621910C8BF7}"
 EndProject

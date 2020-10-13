@@ -27,9 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\APIs\CleanArchitecture.US.API.Authentication\CleanArchitecture.US.API.Authentication.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.US.Common\CleanArchitecture.US.Common.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.US.Domain\CleanArchitecture.US.Domain.csproj" />
+    <ProjectReference Include="..\..\..\APIs\CleanArchitecture.US.API.Authentication\CleanArchitecture.US.API.Authentication.csproj" />
+    <ProjectReference Include="..\..\..\CleanArchitecture.US.Common\CleanArchitecture.US.Common.csproj" />
+    <ProjectReference Include="..\..\..\CleanArchitecture.US.Domain\CleanArchitecture.US.Domain.csproj" />
   </ItemGroup>
 
 </Project>
