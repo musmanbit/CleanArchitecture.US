@@ -112,10 +112,24 @@ namespace CleanArchitecture.US.API.Authentication.Controllers
 
             
         }
-
-        public async Task GeTask()
+        [HttpGet("InsertAdminaccess")]
+        public async Task Insert()
         {
-            
+
+            var admin = new Admin()
+            {
+                CreatedBy = 5,
+                FirstName = DateTime.Now.Second + " - US",
+                RowState = EntityState.New
+            };
+
+            var user = new User()
+            {
+                CreatedBy = 5,
+                FirstName = DateTime.Now.Second + " - US",
+                RowState = EntityState.New
+            };
+            await AdminApplication.SaveAdminUser(admin, user);
         }
 
 

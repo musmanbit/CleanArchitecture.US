@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using CleanArchitecture.US.Domain;
+using CleanArchitecture.US.Common;
 using CleanArchitecture.US.Application.Interface;
 using CleanArchitecture.US.Infrastructure.Interface;
 
@@ -33,14 +34,13 @@ namespace CleanArchitecture.US.Application
       #region Methods
        public async Task<AdminAccess> Save(AdminAccess entity, bool createTransaction) 
       {
-        //AppLogger.LogEnter();
         TransactionScope scope = null;
           try
          { 
          if (createTransaction)
          {
              scope = new TransactionScope(TransactionScopeOption.Required,
-             new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted });
+             TransactionScopeAsyncFlowOption.Enabled);
          }
           await Save(entity);
           scope?.Complete();
@@ -48,14 +48,12 @@ namespace CleanArchitecture.US.Application
           finally 
          { 
           scope?.Dispose();
-         //AppLogger.LogExit();
          } 
           return entity; 
       }
       [DataObjectMethod(DataObjectMethodType.Update)]
        internal async Task<AdminAccess> Save(AdminAccess entity ) 
       {
-        //AppLogger.LogEnter();
         if (!entity.IsValid())
         {
           //throw new DataValidationException();
@@ -72,19 +70,17 @@ namespace CleanArchitecture.US.Application
            await _adminaccessInfrastructure.Delete(entity); 
             break; 
            } 
-         //AppLogger.LogExit();
           return entity; 
       }
        public async Task<IList<AdminAccess>> Save(IList<AdminAccess> entityCollection, bool createTransaction) 
       {
-        //AppLogger.LogEnter();
         TransactionScope scope = null;
           try
          { 
          if (createTransaction) 
          {
              scope = new TransactionScope(TransactionScopeOption.Required,
-             new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted });
+             TransactionScopeAsyncFlowOption.Enabled);
          }
           await Save(entityCollection);
           scope?.Complete();
@@ -92,17 +88,13 @@ namespace CleanArchitecture.US.Application
           finally 
          { 
           scope?.Dispose();
-         //AppLogger.LogExit();
          } 
           return entityCollection; 
       }
       [DataObjectMethod(DataObjectMethodType.Update)]
        internal async Task<IList<AdminAccess>>  Save( IList<AdminAccess> entityCollection) 
       {
-        //AppLogger.LogEnter();
          bool isAllValid = true; 
-          try
-         { 
           foreach (var entity in entityCollection) 
         {
            if (!entity.IsValid()) isAllValid = false; 
@@ -113,66 +105,29 @@ namespace CleanArchitecture.US.Application
         }
            await _adminaccessInfrastructure.Update(entityCollection);  
           return entityCollection; 
-         } 
-          finally 
-         { 
-         //AppLogger.LogExit();
-         } 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<AdminAccess> GetById(Int32  adminAccessId) 
       {
-        //AppLogger.LogEnter();
-          try
-         { 
          var entity = await _adminaccessInfrastructure.GetById(adminAccessId); 
          if(entity == null) return  new AdminAccess();
            return entity; 
-         } 
-          finally 
-         { 
-         //AppLogger.LogExit();
-         } 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<IList<AdminAccess>> GetListByForeignKeyAdminId(Int32 adminId) 
       {
-        //AppLogger.LogEnter();
-          try
-         { 
          return await _adminaccessInfrastructure.GetListByForeignKeyAdminId(adminId); 
-         } 
-          finally 
-         { 
-         //AppLogger.LogExit();
-         } 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<IList<AdminAccess>> GetListByForeignKeyUserId(Int32 userId) 
       {
-        //AppLogger.LogEnter();
-          try
-         { 
          return await _adminaccessInfrastructure.GetListByForeignKeyUserId(userId); 
-         } 
-          finally 
-         { 
-         //AppLogger.LogExit();
-         } 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<IList<AdminAccess>> GetAll() 
       {
-        //AppLogger.LogEnter();
-          try
-         { 
          var collection = await _adminaccessInfrastructure.GetAll();
           return collection; 
-         } 
-          finally 
-         { 
-         //AppLogger.LogExit();
-         } 
       }
       #endregion
     }

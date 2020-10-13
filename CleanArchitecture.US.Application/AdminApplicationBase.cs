@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using CleanArchitecture.US.Domain;
+using CleanArchitecture.US.Common;
 using CleanArchitecture.US.Application.Interface;
 using CleanArchitecture.US.Infrastructure.Interface;
 
@@ -17,7 +18,7 @@ using CleanArchitecture.US.Infrastructure.Interface;
 
 namespace CleanArchitecture.US.Application
 {
-     public class AdminApplicationBase: BaseApplication,IBaseApplication<Admin>
+     public class AdminApplicationBase:BaseApplication, IBaseApplication<Admin>
     {
       #region Properties
          private IAdminInfrastructure _adminInfrastructure { get; }
@@ -33,14 +34,13 @@ namespace CleanArchitecture.US.Application
       #region Methods
        public async Task<Admin> Save(Admin entity, bool createTransaction) 
       {
-        //AppLogger.LogEnter();
         TransactionScope scope = null;
           try
          { 
          if (createTransaction)
          {
              scope = new TransactionScope(TransactionScopeOption.Required,
-             new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted });
+             TransactionScopeAsyncFlowOption.Enabled);
          }
           await Save(entity);
           scope?.Complete();
@@ -48,14 +48,12 @@ namespace CleanArchitecture.US.Application
           finally 
          { 
           scope?.Dispose();
-         //AppLogger.LogExit();
          } 
           return entity; 
       }
       [DataObjectMethod(DataObjectMethodType.Update)]
        internal async Task<Admin> Save(Admin entity ) 
       {
-        //AppLogger.LogEnter();
         if (!entity.IsValid())
         {
           //throw new DataValidationException();
@@ -72,19 +70,17 @@ namespace CleanArchitecture.US.Application
            await _adminInfrastructure.Delete(entity); 
             break; 
            } 
-         //AppLogger.LogExit();
           return entity; 
       }
        public async Task<IList<Admin>> Save(IList<Admin> entityCollection, bool createTransaction) 
       {
-        //AppLogger.LogEnter();
         TransactionScope scope = null;
           try
          { 
          if (createTransaction) 
          {
              scope = new TransactionScope(TransactionScopeOption.Required,
-             new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted });
+             TransactionScopeAsyncFlowOption.Enabled);
          }
           await Save(entityCollection);
           scope?.Complete();
@@ -92,17 +88,13 @@ namespace CleanArchitecture.US.Application
           finally 
          { 
           scope?.Dispose();
-         //AppLogger.LogExit();
          } 
           return entityCollection; 
       }
       [DataObjectMethod(DataObjectMethodType.Update)]
        internal async Task<IList<Admin>>  Save( IList<Admin> entityCollection) 
       {
-        //AppLogger.LogEnter();
          bool isAllValid = true; 
-          try
-         { 
           foreach (var entity in entityCollection) 
         {
            if (!entity.IsValid()) isAllValid = false; 
@@ -113,40 +105,19 @@ namespace CleanArchitecture.US.Application
         }
            await _adminInfrastructure.Update(entityCollection);  
           return entityCollection; 
-         } 
-          finally 
-         { 
-         //AppLogger.LogExit();
-         } 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<Admin> GetById(Int32  adminId) 
       {
-        //AppLogger.LogEnter();
-          try
-         { 
          var entity = await _adminInfrastructure.GetById(adminId); 
          if(entity == null) return  new Admin();
            return entity; 
-         } 
-          finally 
-         { 
-         //AppLogger.LogExit();
-         } 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<IList<Admin>> GetAll() 
       {
-        //AppLogger.LogEnter();
-          try
-         { 
          var collection = await _adminInfrastructure.GetAll();
           return collection; 
-         } 
-          finally 
-         { 
-         //AppLogger.LogExit();
-         } 
       }
       #endregion
     }

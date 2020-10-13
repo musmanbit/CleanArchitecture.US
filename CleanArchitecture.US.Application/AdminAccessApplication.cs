@@ -9,14 +9,14 @@ using CleanArchitecture.US.Application.Interface;
 
 namespace CleanArchitecture.US.Application
 {
-     public class AdminAccessApplication:AdminAccessApplicationBase, IAdminAccessApplication
+    public class AdminAccessApplication : AdminAccessApplicationBase, IAdminAccessApplication
     {
-    #region Constructor
-       public AdminAccessApplication(IAdminAccessInfrastructure adminaccessInfrastructure, IConfiguration configuration,
-            ILogger <AdminAccessApplication> logger) : base(adminaccessInfrastructure,configuration, logger)
-      {
-      }
-    #endregion
+        #region Constructor
+        public AdminAccessApplication(IAdminAccessInfrastructure adminaccessInfrastructure, IConfiguration configuration,
+             ILogger<AdminAccessApplication> logger) : base(adminaccessInfrastructure, configuration, logger)
+        {
+        }
+        #endregion
     }
-    }
+}
 
