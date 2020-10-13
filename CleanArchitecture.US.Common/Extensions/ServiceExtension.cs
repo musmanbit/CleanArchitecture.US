@@ -7,6 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using CleanArchitecture.US.Common.Middleware;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
+using NLog.Web;
+using Microsoft.Extensions.Hosting;
 
 namespace CleanArchitecture.US.Common.Extensions
 {
@@ -17,7 +21,7 @@ namespace CleanArchitecture.US.Common.Extensions
     {
         private const string SwaggerPath = "/swagger/v1/swagger.json";
 
-
+       
         public static IServiceCollection RegisterAuthenticationService(this IServiceCollection services, IConfiguration configuration)
         {
 
@@ -137,6 +141,17 @@ namespace CleanArchitecture.US.Common.Extensions
             });
 
             return services;
+        }
+
+        public static IHostBuilder ConfigureLogging(this IHostBuilder hostBuilder)
+        {
+            hostBuilder.ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.SetMinimumLevel(LogLevel.Error);
+            }).UseNLog();
+
+            return hostBuilder;
         }
     }
 }
