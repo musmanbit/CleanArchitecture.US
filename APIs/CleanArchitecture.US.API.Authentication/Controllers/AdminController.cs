@@ -117,7 +117,7 @@ namespace CleanArchitecture.US.API.Authentication.Controllers
         {
             int i = 5;
             int d = 0;
-            var res = i / d;
+           // var res = i / d;
 
             var admin = new Admin()
             {
