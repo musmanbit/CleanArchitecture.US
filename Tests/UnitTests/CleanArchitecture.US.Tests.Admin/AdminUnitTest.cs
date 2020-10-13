@@ -22,7 +22,7 @@ namespace CleanArchitecture.US.Tests.Admin
 
         [Test]
 
-        [TestCase(5)]
+        [TestCase(6)]
         public async Task Admin_GetById_returns_admin(int id)
         {
 
