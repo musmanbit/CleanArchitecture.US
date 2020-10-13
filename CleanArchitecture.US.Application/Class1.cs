@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CleanArchitecture.US.Application
+﻿namespace CleanArchitecture.US.Application
 {
     public class Class1
     {

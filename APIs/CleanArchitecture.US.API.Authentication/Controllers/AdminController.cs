@@ -1,65 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using CleanArchitecture.US.Application.Interface;
+using CleanArchitecture.US.Common;
+using CleanArchitecture.US.Common.Controllers;
+using CleanArchitecture.US.Domain;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using CleanArchitecture.US.Application.Interface;
-using CleanArchitecture.US.Domain;
-using CleanArchitecture.US.Common.Controllers;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.VisualBasic;
-using CleanArchitecture.US.Common;
-using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace CleanArchitecture.US.Controllers
+namespace CleanArchitecture.US.API.Authentication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : APIBaseController
     {
 
-        private IAdminApplication _adminApplication { get; }
-        private IUserApplication _userApplication { get; }
+        private IAdminApplication AdminApplication { get; }
+        private IUserApplication UserApplication { get; }
 
         public AdminController(IConfiguration configuration, ILogger<AdminController> logger, IAdminApplication adminApplication, IUserApplication userApplication)
-            : base(configuration, logger)
+            : base(configuration, null)
         {
-            _adminApplication = adminApplication;
-            this._userApplication = userApplication;
+            AdminApplication = adminApplication;
+            this.UserApplication = userApplication;
         }
         // GET: api/<AdminController>
         [HttpGet]
         public IEnumerable<string> Get()
         {
-
-            return new string[] { "value1", "value2" };
+            var summaryData = string.Empty;
+            var incrementalData = string.Empty;
+            return new string[] { summaryData, incrementalData };
         }
 
         // GET api/<AdminController>/5
         //[Authorize()]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}")]
         public async Task<Admin> Get(int id)
         {
             //  var res = HttpContext.Items["UserID"];
-            var claims = HttpContext.User.Identity as ClaimsIdentity;
-            var userId = claims.Claims.FirstOrDefault(x => x.Type == Constant.UserId);
-            var result = await _adminApplication.GetById(id);
+            var result = await AdminApplication.GetById(id);
             return result;
         }
       
         [HttpGet("User/{id}")]
         public async Task<User> GetUser(int id)
         {
-            return await _userApplication.GetById(id);
+            return await UserApplication.GetById(id);
         }
 
         // POST api/<AdminController>
@@ -77,11 +75,11 @@ namespace CleanArchitecture.US.Controllers
         [HttpGet("SignIn/{id}")]
         public async Task<IActionResult> SignIn(int id)
         {
-            var result = await _adminApplication.GetById(id);
+            var result = await AdminApplication.GetById(id);
             string tokenResult = string.Empty;
             if (result != null)
             {
-                var Claims = new ClaimsIdentity(new Claim[]
+                var claims = new ClaimsIdentity(new Claim[]
                               {
                                     new Claim("email", "us@us.com"),
                                     new Claim(Constant.UserId, id.ToString())
@@ -89,12 +87,12 @@ namespace CleanArchitecture.US.Controllers
 
                 var tokenHandler = new JwtSecurityTokenHandler();
 
-                var encryptionkey = Configuration["Jwt:Encryptionkey"];
-                var key = Encoding.ASCII.GetBytes(encryptionkey);
+                var encryptionKey = Configuration["Jwt:Encryptionkey"];
+                var key = Encoding.ASCII.GetBytes(encryptionKey);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Issuer = Configuration["Jwt:Issuer"],
-                    Subject = Claims,
+                    Subject = claims,
                     Audience = Configuration["Jwt:Audience"],
                     Expires = DateTime.Now.AddMinutes(Convert.ToDouble(Configuration["Jwt:ExpiryTimeInMinutes"])),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -111,7 +109,12 @@ namespace CleanArchitecture.US.Controllers
 
             
         }
-        
-       
+
+        public async Task GeTask()
+        {
+            
+        }
+
+
     }
 }

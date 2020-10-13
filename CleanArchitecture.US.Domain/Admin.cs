@@ -1,5 +1,5 @@
 #region using directives
-using System;
+
 #endregion
 
 namespace CleanArchitecture.US.Domain

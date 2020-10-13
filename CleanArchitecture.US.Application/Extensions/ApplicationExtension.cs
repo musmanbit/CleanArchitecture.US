@@ -1,10 +1,5 @@
 ﻿using CleanArchitecture.US.Application.Interface;
-using CleanArchitecture.US.Common.Middleware;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CleanArchitecture.US.Application.Extensions
 {
@@ -18,11 +13,7 @@ namespace CleanArchitecture.US.Application.Extensions
 
             return services;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="app"></param>
-        /// <returns></returns>
+     
      
 
     }

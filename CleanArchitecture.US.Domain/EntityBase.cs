@@ -5,8 +5,6 @@ Important: Do not modify this file. Edit the file EntityBase.cs instead.
 
 #region using directives
 
-using System;
-
 #endregion
 
 namespace CleanArchitecture.US.Domain

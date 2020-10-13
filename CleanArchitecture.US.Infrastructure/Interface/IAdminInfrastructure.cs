@@ -1,7 +1,5 @@
 #region using directives
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 using CleanArchitecture.US.Domain;
 #endregion
 
