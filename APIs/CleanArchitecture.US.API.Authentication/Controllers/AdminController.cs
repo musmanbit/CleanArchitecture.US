@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,8 +50,10 @@ namespace CleanArchitecture.US.API.Authentication.Controllers
         [HttpGet("{id}")]
         public async Task<Admin> Get(int id)
         {
+            if (id == 5) throw  new Exception("not found");
             //  var res = HttpContext.Items["UserID"];
             var result = await AdminApplication.GetById(id);
+            
             return result;
         }
       

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CleanArchitecture.US.API.Authentication.IntegrationTest.Fixtures;
 using NUnit.Framework;
-using  FluentAssertions;
+
 
 namespace CleanArchitecture.US.API.Authentication.IntegrationTest
 {
@@ -22,7 +22,7 @@ namespace CleanArchitecture.US.API.Authentication.IntegrationTest
         }
 
         [Test]
-        [TestCase(5)]
+        [TestCase(7)]
         [TestCase(6)]
         public async Task WhenSomeTextIsPosted_ThenTheResultIsOk(int id)
         {
