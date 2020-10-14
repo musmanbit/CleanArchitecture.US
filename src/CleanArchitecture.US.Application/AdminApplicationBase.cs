@@ -18,108 +18,108 @@ using CleanArchitecture.US.Infrastructure.Interface;
 
 namespace CleanArchitecture.US.Application
 {
-     public class AdminApplicationBase:BaseApplication, IBaseApplication<Admin>
+    public class AdminApplicationBase : BaseApplication, IBaseApplication<Admin>
     {
-      #region Properties
-         private IAdminInfrastructure _adminInfrastructure { get; }
-      #endregion
+        #region Properties
+        private IAdminInfrastructure _adminInfrastructure { get; }
+        #endregion
 
-      #region Constructor
-       public AdminApplicationBase(IAdminInfrastructure adminInfrastructure, IConfiguration configuration, ILogger<AdminApplication> logger) : base(configuration, logger)
-      {
-        this._adminInfrastructure = adminInfrastructure;
-      }
-      #endregion
+        #region Constructor
+        public AdminApplicationBase(IAdminInfrastructure adminInfrastructure, IConfiguration configuration, ILogger<AdminApplication> logger) : base(configuration, logger)
+        {
+            this._adminInfrastructure = adminInfrastructure;
+        }
+        #endregion
 
-      #region Methods
-       public async Task<Admin> Save(Admin entity, bool createTransaction) 
-      {
-        TransactionScope scope = null;
-          try
-         { 
-         if (createTransaction)
-         {
-             scope = new TransactionScope(TransactionScopeOption.Required,
-             TransactionScopeAsyncFlowOption.Enabled);
-         }
-          await Save(entity);
-          scope?.Complete();
-         } 
-          finally 
-         { 
-          scope?.Dispose();
-         } 
-          return entity; 
-      }
-      [DataObjectMethod(DataObjectMethodType.Update)]
-       internal async Task<Admin> Save(Admin entity ) 
-      {
-        if (!entity.IsValid())
+        #region Methods
+        public async Task<Admin> Save(Admin entity, bool createTransaction)
         {
-          //throw new DataValidationException();
+            TransactionScope scope = null;
+            try
+            {
+                if (createTransaction)
+                {
+                    scope = new TransactionScope(TransactionScopeOption.Required,
+                    TransactionScopeAsyncFlowOption.Enabled);
+                }
+                await Save(entity);
+                scope?.Complete();
+            }
+            finally
+            {
+                scope?.Dispose();
+            }
+            return entity;
         }
-           switch (entity.RowState) 
-           { 
-           case EntityState.New: 
-            await _adminInfrastructure.Insert(entity); 
-           break; 
-            case EntityState.Modified: 
-            await _adminInfrastructure.Update(entity); 
-            break; 
-           case EntityState.Deleted: 
-           await _adminInfrastructure.Delete(entity); 
-            break; 
-           } 
-          return entity; 
-      }
-       public async Task<IList<Admin>> Save(IList<Admin> entityCollection, bool createTransaction) 
-      {
-        TransactionScope scope = null;
-          try
-         { 
-         if (createTransaction) 
-         {
-             scope = new TransactionScope(TransactionScopeOption.Required,
-             TransactionScopeAsyncFlowOption.Enabled);
-         }
-          await Save(entityCollection);
-          scope?.Complete();
-         } 
-          finally 
-         { 
-          scope?.Dispose();
-         } 
-          return entityCollection; 
-      }
-      [DataObjectMethod(DataObjectMethodType.Update)]
-       internal async Task<IList<Admin>>  Save( IList<Admin> entityCollection) 
-      {
-         bool isAllValid = true; 
-          foreach (var entity in entityCollection) 
+        [DataObjectMethod(DataObjectMethodType.Update)]
+        internal async Task<Admin> Save(Admin entity)
         {
-           if (!entity.IsValid()) isAllValid = false; 
+            if (!entity.IsValid())
+            {
+                //throw new DataValidationException();
+            }
+            switch (entity.RowState)
+            {
+                case EntityState.New:
+                    await _adminInfrastructure.Insert(entity);
+                    break;
+                case EntityState.Modified:
+                    await _adminInfrastructure.Update(entity);
+                    break;
+                case EntityState.Deleted:
+                    await _adminInfrastructure.Delete(entity);
+                    break;
+            }
+            return entity;
         }
-        if (!isAllValid)
+        public async Task<IList<Admin>> Save(IList<Admin> entityCollection, bool createTransaction)
         {
-          //throw new DataValidationException();
+            TransactionScope scope = null;
+            try
+            {
+                if (createTransaction)
+                {
+                    scope = new TransactionScope(TransactionScopeOption.Required,
+                    TransactionScopeAsyncFlowOption.Enabled);
+                }
+                await Save(entityCollection);
+                scope?.Complete();
+            }
+            finally
+            {
+                scope?.Dispose();
+            }
+            return entityCollection;
         }
-           await _adminInfrastructure.Update(entityCollection);  
-          return entityCollection; 
-      }
-      [DataObjectMethod(DataObjectMethodType.Select)]
-       public async Task<Admin> GetById(Int32  adminId) 
-      {
-         var entity = await _adminInfrastructure.GetById(adminId); 
-         if(entity == null) return  new Admin();
-           return entity; 
-      }
-      [DataObjectMethod(DataObjectMethodType.Select)]
-       public async Task<IList<Admin>> GetAll() 
-      {
-         var collection = await _adminInfrastructure.GetAll();
-          return collection; 
-      }
-      #endregion
+        [DataObjectMethod(DataObjectMethodType.Update)]
+        internal async Task<IList<Admin>> Save(IList<Admin> entityCollection)
+        {
+            bool isAllValid = true;
+            foreach (var entity in entityCollection)
+            {
+                if (!entity.IsValid()) isAllValid = false;
+            }
+            if (!isAllValid)
+            {
+                //throw new DataValidationException();
+            }
+            await _adminInfrastructure.Update(entityCollection);
+            return entityCollection;
+        }
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public async Task<Admin> GetById(Int32 adminId)
+        {
+            var entity = await _adminInfrastructure.GetById(adminId);
+            if (entity == null) return new Admin();
+            return entity;
+        }
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public async Task<IList<Admin>> GetAll()
+        {
+            var collection = await _adminInfrastructure.GetAll();
+            return collection;
+        }
+        #endregion
     }
-    }
+}
 

@@ -21,9 +21,10 @@ namespace CleanArchitecture.US.API.Authentication.IntegrationTest
            
         }
 
-        [Test]
+      /*  [Test]
         [TestCase(7)]
         [TestCase(6)]
+        */
         public async Task WhenSomeTextIsPosted_ThenTheResultIsOk(int id)
         {
             var textContent = new ByteArrayContent(Encoding.UTF8.GetBytes("Backpack for his applesauce"));
