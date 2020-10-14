@@ -42,14 +42,14 @@ namespace CleanArchitecture.US.API.Authentication.IntegrationTest
           
         }
 
-        [Test]
+        //[Test]
         public async Task WhenNoTextIsPosted_ThenTheResultIsBadRequest()
         {
             var result = await base.Client.PostAsync("/sample", new StringContent(string.Empty));
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
         }
 
-        [OneTimeTearDown]
+        //[OneTimeTearDown]
         public void TearDown()
         {
             Client.Dispose();
