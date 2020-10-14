@@ -34,6 +34,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.API.Au
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{623BA06E-E75D-4950-8985-2621910C8BF7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{8CFF6EFD-DE1A-436C-8490-E33837A2F714}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\musma\Documents\DBScript.sql = C:\Users\musma\Documents\DBScript.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
