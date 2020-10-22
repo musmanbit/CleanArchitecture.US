@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CleanArchitecture.US.Common.NLog;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -9,7 +10,7 @@ namespace CleanArchitecture.US.Common.Middleware
         #region Properties and Data Members
         protected RequestDelegate Next { get; }
         public IConfiguration Configuration { get; }
-        protected ILogger Logger { get; }
+        protected ILoggerManager Logger { get; }
         #endregion
 
         #region Constructor
@@ -19,7 +20,7 @@ namespace CleanArchitecture.US.Common.Middleware
         /// <param name="next"></param>
         /// <param name="configuration"></param>
         /// <param name="logger"></param>
-        protected BaseMiddleware(RequestDelegate next, IConfiguration configuration, ILogger logger)
+        protected BaseMiddleware(RequestDelegate next, IConfiguration configuration, ILoggerManager logger)
         {
             this.Next = next;
             this.Configuration = configuration;

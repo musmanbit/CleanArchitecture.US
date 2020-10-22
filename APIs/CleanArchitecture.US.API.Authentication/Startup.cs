@@ -23,7 +23,7 @@ namespace CleanArchitecture.US.API.Authentication
         {
             
             services.AddControllers();
-            
+            services.RegisterNlog();
             services.RegisterApplicationServices();
             services.RegisterInfrastructureServices();
             services.RegisterAuthenticationService(Configuration);

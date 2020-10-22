@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using CleanArchitecture.US.Common.Extensions;
+using CleanArchitecture.US.Common.NLog;
 
 namespace CleanArchitecture.US.Common.Middleware
 {
@@ -28,7 +29,7 @@ namespace CleanArchitecture.US.Common.Middleware
         /// <param name="next"></param>
         /// <param name="configuration"></param>
         /// <param name="logger"></param>
-        public TokenValidatorMiddleware(RequestDelegate next, IConfiguration configuration, ILogger<TokenValidatorMiddleware> logger) : base(next, configuration, logger)
+        public TokenValidatorMiddleware(RequestDelegate next, IConfiguration configuration, ILoggerManager logger) : base(next, configuration, logger)
         {
         }
         #endregion
@@ -82,7 +83,7 @@ namespace CleanArchitecture.US.Common.Middleware
             }
             catch (Exception ex)
             {
-                base.Logger?.LogError(ex, "Method: TokenValidatorMiddleware.GetUserIdFromToken - " + "Exception Message: " + ex.Message);
+                //base.Logger.LogError(ex, "Method: TokenValidatorMiddleware.GetUserIdFromToken - " + "Exception Message: " + ex.Message);
                 return 0;
             }
             return Convert.ToInt32(userId);

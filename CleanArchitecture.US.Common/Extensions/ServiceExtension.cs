@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
 using Microsoft.Extensions.Hosting;
+using CleanArchitecture.US.Common.NLog;
 
 namespace CleanArchitecture.US.Common.Extensions
 {
@@ -152,6 +153,11 @@ namespace CleanArchitecture.US.Common.Extensions
             }).UseNLog();
 
             return hostBuilder;
+        }
+        public static IServiceCollection RegisterNlog(this IServiceCollection services)
+        {
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+            return services;
         }
     }
 }

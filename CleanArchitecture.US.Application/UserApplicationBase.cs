@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using CleanArchitecture.US.Domain;
 using CleanArchitecture.US.Common;
+using CleanArchitecture.US.Common.NLog;
 using CleanArchitecture.US.Application.Interface;
 using CleanArchitecture.US.Infrastructure.Interface;
 
@@ -25,7 +26,7 @@ namespace CleanArchitecture.US.Application
       #endregion
 
       #region Constructor
-       public UserApplicationBase(IUserInfrastructure userInfrastructure, IConfiguration configuration, ILogger<UserApplication> logger) : base(configuration, logger)
+       public UserApplicationBase(IUserInfrastructure userInfrastructure, IConfiguration configuration, ILoggerManager logger) : base(configuration, logger)
       {
         this._userInfrastructure = userInfrastructure;
       }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CleanArchitecture.US.Domain;
 using System.Transactions;
 using CleanArchitecture.US.Infrastructure;
+using CleanArchitecture.US.Common.NLog;
 
 #endregion
 
@@ -20,7 +21,7 @@ namespace CleanArchitecture.US.Application
 
         #region Constructor
         public AdminApplication(IAdminInfrastructure adminInfrastructure, IUserApplication userApplication, IConfiguration configuration,
-             ILogger<AdminApplication> logger) : base(adminInfrastructure, configuration, logger)
+             ILoggerManager logger) : base(adminInfrastructure, configuration, logger)
         {
             _userApplication = userApplication;
         }

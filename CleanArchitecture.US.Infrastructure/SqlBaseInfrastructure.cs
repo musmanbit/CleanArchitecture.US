@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CleanArchitecture.US.Common.NLog;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,7 +10,7 @@ namespace CleanArchitecture.US.Infrastructure
     public abstract class SqlBaseInfrastructure
     {
 
-        protected SqlBaseInfrastructure(IConfiguration configuration, ILogger logger)
+        protected SqlBaseInfrastructure(IConfiguration configuration, ILoggerManager logger)
         {
             this.Configuration = configuration;
             ConnectionStrings = this.Configuration.GetConnectionString("DefaultConnectionString");
@@ -23,7 +24,7 @@ namespace CleanArchitecture.US.Infrastructure
             ConnectionStrings = this.Configuration.GetConnectionString("DefaultConnectionString");
         }
         protected IConfiguration Configuration { get; }
-        public ILogger Logger { get; }
+        public ILoggerManager Logger { get; }
        
 
         private readonly string  ConnectionStrings;

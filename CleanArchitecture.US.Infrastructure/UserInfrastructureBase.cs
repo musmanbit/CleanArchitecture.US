@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using CleanArchitecture.US.Infrastructure.Interface;
 using CleanArchitecture.US.Domain;
+using CleanArchitecture.US.Common.NLog;
 #endregion
 
 namespace CleanArchitecture.US.Infrastructure
@@ -22,7 +23,7 @@ namespace CleanArchitecture.US.Infrastructure
      /// </summary> 
      public class UserInfrastructureBase: SqlBaseInfrastructure, IBaseInfrastructure<User>
     {
-    public UserInfrastructureBase(IConfiguration configuration, ILogger<User> logger) : base(configuration, logger)
+    public UserInfrastructureBase(IConfiguration configuration, ILoggerManager logger) : base(configuration, logger)
     {}
     public UserInfrastructureBase(IConfiguration configuration) : base(configuration)
     {}

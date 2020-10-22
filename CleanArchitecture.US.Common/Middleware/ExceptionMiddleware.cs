@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CleanArchitecture.US.Common.NLog;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -20,7 +21,7 @@ namespace CleanArchitecture.US.Common.Middleware
         /// <param name="next"></param>
         /// <param name="configuration"></param>
         /// <param name="logger"></param>
-        public ExceptionMiddleware(RequestDelegate next, IConfiguration configuration, ILogger<ExceptionMiddleware> logger) : base(next, configuration, logger)
+        public ExceptionMiddleware(RequestDelegate next, IConfiguration configuration, ILoggerManager logger) : base(next, configuration, logger)
         {
         }
         #endregion
@@ -51,12 +52,9 @@ namespace CleanArchitecture.US.Common.Middleware
         /// <returns></returns>
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-
             var message = JsonConvert.SerializeObject(new { error = exception.Message });
-
             context.Response.ContentType = Constant.JsonContentType;
-            
-            Logger.LogError(exception, message);
+            Logger.LogException(exception);
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             return context.Response.WriteAsync(message);
         }

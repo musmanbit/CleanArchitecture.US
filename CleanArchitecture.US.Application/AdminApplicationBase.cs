@@ -7,10 +7,10 @@ using System.Transactions;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using CleanArchitecture.US.Domain;
 using CleanArchitecture.US.Common;
+using CleanArchitecture.US.Common.NLog;
 using CleanArchitecture.US.Application.Interface;
 using CleanArchitecture.US.Infrastructure.Interface;
 
@@ -25,7 +25,7 @@ namespace CleanArchitecture.US.Application
       #endregion
 
       #region Constructor
-       public AdminApplicationBase(IAdminInfrastructure adminInfrastructure, IConfiguration configuration, ILogger<AdminApplication> logger) : base(configuration, logger)
+       public AdminApplicationBase(IAdminInfrastructure adminInfrastructure, IConfiguration configuration, ILoggerManager logger) : base(configuration, logger)
       {
         this._adminInfrastructure = adminInfrastructure;
       }
