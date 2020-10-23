@@ -33,7 +33,7 @@ namespace CleanArchitecture.US.API.Authentication.Controllers
                 _loggerManager.LogWarning("Log warning");
                 int i = 5;
                 int d = 0;
-                //Console.WriteLine((i / d).ToString());
+                Console.WriteLine((i / d).ToString());
 
                 var rng = new Random();
                 return Enumerable.Range(1, 5).Select(index => new WeatherForecast
