@@ -13,6 +13,7 @@ using CleanArchitecture.US.Domain;
 using CleanArchitecture.US.Common;
 using CleanArchitecture.US.Application.Interface;
 using CleanArchitecture.US.Infrastructure.Interface;
+using CleanArchitecture.US.Common.NLog;
 
 #endregion
 
@@ -25,7 +26,7 @@ namespace CleanArchitecture.US.Application
         #endregion
 
         #region Constructor
-        public AdminApplicationBase(IAdminInfrastructure adminInfrastructure, IConfiguration configuration, ILogger<AdminApplication> logger) : base(configuration, logger)
+        public AdminApplicationBase(IAdminInfrastructure adminInfrastructure, IConfiguration configuration, ILoggerManager logger) : base(configuration, logger)
         {
             this._adminInfrastructure = adminInfrastructure;
         }
