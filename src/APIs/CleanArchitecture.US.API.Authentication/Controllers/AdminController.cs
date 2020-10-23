@@ -115,10 +115,6 @@ namespace CleanArchitecture.US.API.Authentication.Controllers
         [HttpGet("InsertAdminaccess")]
         public async Task Insert()
         {
-            int i = 5;
-            int d = 0;
-           // var res = i / d;
-
             var admin = new Admin()
             {
                 CreatedBy = 5,
