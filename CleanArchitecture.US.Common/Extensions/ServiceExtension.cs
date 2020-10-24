@@ -110,38 +110,39 @@ namespace CleanArchitecture.US.Common.Extensions
             return app.UseMiddleware<ExceptionMiddleware>();
         }
         /// <summary>
-        /// UseSwaggerMiddleware registers Swagger Middleware
+        /// Registers Swagger Middleware
         /// </summary>
         /// <param name="app"></param>
         /// <param name="applicationName"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseSwaggerMiddleware(this IApplicationBuilder app, string applicationName)
+        public static IApplicationBuilder UseSwaggerMiddleware(this IApplicationBuilder app, string apiName)
         {
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
             return app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint(ServiceExtension.SwaggerPath, applicationName);
+                c.SwaggerEndpoint(ServiceExtension.SwaggerPath, apiName);                
             });
         }
 
         /// <summary>
-        /// RegisterSwagger registers Swagger components.
+        /// registers Swagger components.
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="applicationName"></param>
+        /// <param name="apiName"></param>
         /// <returns></returns>
-        public static IServiceCollection RegisterSwagger(this IServiceCollection services, string applicationName)
+        public static IServiceCollection RegisterSwagger(this IServiceCollection services, string apiName, string description)
         {
-            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = applicationName, Version = "v1" });
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = apiName,
+                    Description = description
+                    
+                });
             });
-
             return services;
         }
 

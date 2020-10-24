@@ -1,13 +1,18 @@
-using CleanArchitecture.US.Application.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using CleanArchitecture.US.Common.Extensions;
-using CleanArchitecture.US.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace CleanArchitecture.US.API.Authentication
+namespace CleanArchitecture.US.API.Payments
 {
     public class Startup
     {
@@ -21,15 +26,8 @@ namespace CleanArchitecture.US.API.Authentication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             services.AddControllers();
-            services.RegisterLogging();
-            services.RegisterApplicationServices();
-            services.RegisterInfrastructureServices();
-            services.RegisterAuthenticationService(Configuration);
-            services.RegisterSwagger("Authentication API", "Authentication service to authenticate the users");
-
-
+            services.RegisterSwagger("Credit Card Payment API", "Payment service to process the payments");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,18 +37,14 @@ namespace CleanArchitecture.US.API.Authentication
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseSwaggerMiddleware("Authentication API");
-            
+            app.UseSwaggerMiddleware("Credit Card Payment API");
+
             app.UseHttpsRedirection();
-         
+
             app.UseRouting();
 
-            //  app.UseSwaggerMiddleware(this.GetType().Namespace);
-            app.UseAuthentication();
             app.UseAuthorization();
-           
-            app.UseExceptionMiddleware();
-       
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
