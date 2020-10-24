@@ -13,6 +13,7 @@ using NLog.Web;
 using Microsoft.Extensions.Hosting;
 using CleanArchitecture.US.Common.NLog;
 
+
 namespace CleanArchitecture.US.Common.Extensions
 {
     /// <summary>
@@ -146,15 +147,23 @@ namespace CleanArchitecture.US.Common.Extensions
 
         public static IHostBuilder ConfigureLogging(this IHostBuilder hostBuilder)
         {
+            //NLog
             hostBuilder.ConfigureLogging(logging =>
             {
                 logging.ClearProviders();
                 logging.SetMinimumLevel(LogLevel.Error);
             }).UseNLog();
+            
+            //hostBuilder.UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
+            //    .ReadFrom.Configuration(hostingContext.Configuration));
+
 
             return hostBuilder;
         }
-        public static IServiceCollection RegisterNlog(this IServiceCollection services)
+
+    
+
+        public static IServiceCollection RegisterLogging(this IServiceCollection services)
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
             return services;
