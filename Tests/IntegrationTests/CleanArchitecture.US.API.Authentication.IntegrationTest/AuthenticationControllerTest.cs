@@ -14,11 +14,11 @@ namespace CleanArchitecture.US.API.Authentication.IntegrationTest
     [TestFixture]
     public class AuthenticationControllerTest : Fixtures.IntegrationTest
     {
-       
+
         [OneTimeSetUp]
         public void GivenARequestToTheController()
         {
-           
+
         }
 
         [Test]
@@ -28,17 +28,8 @@ namespace CleanArchitecture.US.API.Authentication.IntegrationTest
         {
             var textContent = new ByteArrayContent(Encoding.UTF8.GetBytes("Backpack for his applesauce"));
             textContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
-            try
-            {
-                var result = await base.Client.GetAsync("/api/admin/" + id.ToString());
-                Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-          
+            var result = await base.Client.GetAsync("/api/admin/" + id.ToString());
+            Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -52,7 +43,7 @@ namespace CleanArchitecture.US.API.Authentication.IntegrationTest
         public void TearDown()
         {
             Client.Dispose();
-          
+
         }
     }
 }

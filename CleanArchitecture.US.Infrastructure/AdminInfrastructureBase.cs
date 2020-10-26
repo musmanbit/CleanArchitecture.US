@@ -20,212 +20,213 @@ namespace CleanArchitecture.US.Infrastructure
     /// <summary>
     /// This class handles the CRUD operations of the <table></table> 
     /// It is generated using the Generic ORM framework 
-     /// </summary> 
-     public class AdminInfrastructureBase: SqlBaseInfrastructure, IBaseInfrastructure<Admin>
+    /// </summary> 
+    public class AdminInfrastructureBase : SqlBaseInfrastructure, IBaseInfrastructure<Admin>
     {
-    public AdminInfrastructureBase(IConfiguration configuration, ILoggerManager logger) : base(configuration, logger)
-    {}
-    public AdminInfrastructureBase(IConfiguration configuration) : base(configuration)
-    {}
-             public enum AdminColumn
-           {
-              AdminId=1,CreatedBy=2,FirstName=3
-           }
-     protected static IList<Admin> Fill(IDataReader reader, IList<Admin> rows, int start, int pageLength) 
-    {
-      // advance to the starting row
-      for (int i = 0; i < start; i++)
-      {
-       if (!reader.Read()) 
-       return rows; // not enough rows, just return
-      }
-      if (pageLength <= 0) pageLength = 99999999; //100 million by default  
-       for (int i = 0; i < pageLength; i++) 
-      {
-       if (!reader.Read()) 
-        {break;} // we are done
+        public AdminInfrastructureBase(IConfiguration configuration, ILoggerManager logger) : base(configuration, logger)
+        { }
+        public AdminInfrastructureBase(IConfiguration configuration) : base(configuration)
+        { }
+        public enum AdminColumn
+        {
+            AdminId = 1, CreatedBy = 2, FirstName = 3
+        }
+        protected static IList<Admin> Fill(IDataReader reader, IList<Admin> rows, int start, int pageLength)
+        {
+            // advance to the starting row
+            for (int i = 0; i < start; i++)
+            {
+                if (!reader.Read())
+                    return rows; // not enough rows, just return
+            }
+            if (pageLength <= 0) pageLength = 99999999; //100 million by default  
+            for (int i = 0; i < pageLength; i++)
+            {
+                if (!reader.Read())
+                { break; } // we are done
 
-        var c = new Admin();
-         c.AdminId = (Int32)reader[((int)AdminColumn.AdminId - 1)]; 
-         c.CreatedBy = (Int32)reader[((int)AdminColumn.CreatedBy - 1)]; 
-         c.FirstName = (string)reader[((int)AdminColumn.FirstName - 1)]; 
-        c.AcceptChanges();
-        rows.Add(c); 
-      }
-         return rows; 
-      }
-     public async Task<Admin> GetById(Int32 adminId) 
-    {
-      SqlConnection conn = null;
-      SqlCommand cmd = null;
-      try
-      {
-      conn =  GetConnection();
-      cmd = GetSqlCommand(conn, "dbo.gen_Admin_GetByadmin_id", true); 
-       cmd.Parameters.Add(GetInParameter("@AdminId", SqlDbType.Int, adminId)); 
-       IList<Admin> tmp = new List<Admin>();
-      IDataReader reader = await ExecuteReaderAsync(cmd);
-      Fill(reader, tmp, 0, 0);
-       if ( !reader.IsClosed) reader.Close(); 
-       return tmp.Count > 0 ? tmp[0] : null;
-      }
-      finally
-      {
-       conn?.Dispose();
-       cmd?.Dispose(); 
-      }
-    }
-     public async Task<bool> Delete(Admin entity ) 
-    {
-      SqlConnection conn = null;
-      try
-      {
-      conn =  GetConnection();
-      return await Delete(entity, conn);
-      }
-      finally
-      {
-        conn?.Dispose();
-      }
-    }
-     public async Task<bool> Delete(Admin entity, SqlConnection conn) 
-    {
-      SqlCommand cmd = null;
-      try
-      {
-      cmd = GetSqlCommand(conn, "dbo.gen_Admin_Delete", true);
-       cmd.Parameters.Add(GetInParameter("@AdminId", SqlDbType.Int, entity.AdminId)); 
-       await cmd.ExecuteNonQueryAsync();
-      return true;
-      }
-      finally
-      {
-        cmd?.Dispose(); 
-      }
-    }
-     public async Task<IList<Admin>> GetAll() 
-    {
-      SqlConnection conn = null;
-      SqlCommand cmd = null;
-      try
-      {
-      conn = GetConnection();
-      cmd = GetSqlCommand(conn, "dbo.gen_Admin_GetAll", true);
-       IList<Admin> tmp = new List<Admin>();
-      IDataReader reader = await ExecuteReaderAsync(cmd);
-      Fill(reader, tmp, 0, 0);
-       if (!reader.IsClosed) reader.Close(); 
-      return tmp;
-      }
-      finally
-      {
-       conn?.Dispose();
-       cmd?.Dispose(); 
-      }
-    }
-    public async Task<bool>  Insert(Admin entity) 
-    {
-      SqlConnection conn = null;
-      try
-      {
-        conn = GetConnection();
-        return await Insert(entity, conn);
-      }
-        finally 
-       { 
-        conn?.Dispose();
-       } 
-    }
-    public async Task<bool>  Insert(Admin entity, SqlConnection conn) 
-    {
-      SqlCommand cmd = null;
-      try
-      {
-      cmd = GetSqlCommand(conn, "dbo.gen_Admin_Insert", true);
-      cmd.Parameters.Add(GetOutParameter("@AdminId", SqlDbType.Int)); 
-       cmd.Parameters.Add(GetInParameter("@CreatedBy", SqlDbType.Int, entity.CreatedBy)); 
-       cmd.Parameters.Add(GetInParameter("@FirstName", SqlDbType.NVarChar, entity.FirstName)); 
-       await cmd.ExecuteNonQueryAsync();
-       entity.AdminId = (Int32) cmd.Parameters["@AdminId"].Value; 
-       entity.AcceptChanges();
-       return true; 
-      }
-      finally
-      {
-       cmd?.Dispose(); 
-      }
-    }
-    public async Task<bool>  Update(Admin entity) 
-    {
-      SqlConnection conn = null;
-      try
-      {
-        conn = GetConnection();
-        return await Update(entity, conn);
-      }
-        finally 
-       { 
-        conn?.Dispose();
-       } 
-    }
-    public async Task<bool> Update(Admin entity, SqlConnection conn) 
-    {
-      SqlCommand cmd = null;
-      try
-      {
-      cmd = GetSqlCommand(conn, "dbo.gen_Admin_Update", true);
-       cmd.Parameters.Add(GetInParameter("@AdminId", SqlDbType.Int, entity.AdminId)); 
-       cmd.Parameters.Add(GetInParameter("@CreatedBy", SqlDbType.Int, entity.CreatedBy)); 
-       cmd.Parameters.Add(GetInParameter("@FirstName", SqlDbType.NVarChar, entity.FirstName)); 
-       await cmd.ExecuteNonQueryAsync();
-       entity.AcceptChanges();
-       return true;
-      }
-      finally
-      {
-       cmd?.Dispose(); 
-      }
-    }
-     public async Task<int> Update(IList<Admin> entities) 
-    {
-      SqlConnection conn = null;
-      try
-      {
-        conn = GetConnection();
-       int count = 0;
-       foreach (var entity in entities)
-      {
-        if (entity.RowState == EntityState.Modified) 
-       {
-       if (await Update(entity, conn)) 
-       {
-       count++;
+                var c = new Admin();
+                c.AdminId = (Int32)reader[((int)AdminColumn.AdminId - 1)];
+                c.CreatedBy = (Int32)reader[((int)AdminColumn.CreatedBy - 1)];
+                c.FirstName = (string)reader[((int)AdminColumn.FirstName - 1)];
+                c.AcceptChanges();
+                rows.Add(c);
+            }
+            return rows;
+        }
+        public async Task<Admin> GetById(Int32 adminId)
+        {
+            SqlConnection conn = null;
+            SqlCommand cmd = null;
+            try
+            {
+                conn = GetConnection();
+                cmd = GetSqlCommand(conn, "dbo.gen_Admin_GetByadmin_id", true);
+                cmd.Parameters.Add(GetInParameter("@AdminId", SqlDbType.Int, adminId));
+                IList<Admin> tmp = new List<Admin>();
+                IDataReader reader = await ExecuteReaderAsync(cmd);
+                Fill(reader, tmp, 0, 0);
+                if (!reader.IsClosed) reader.Close();
+                return tmp.Count > 0 ? tmp[0] : null;
+            }
+            finally
+            {
+                conn?.Dispose();
+                cmd?.Dispose();
+            }
+        }
+        public async Task<bool> Delete(Admin entity)
+        {
+            SqlConnection conn = null;
+            try
+            {
+                conn = GetConnection();
+                return await Delete(entity, conn);
+            }
+            finally
+            {
+                conn?.Dispose();
+            }
+        }
+        public async Task<bool> Delete(Admin entity, SqlConnection conn)
+        {
+            SqlCommand cmd = null;
+            try
+            {
+                cmd = GetSqlCommand(conn, "dbo.gen_Admin_Delete", true);
+                cmd.Parameters.Add(GetInParameter("@AdminId", SqlDbType.Int, entity.AdminId));
+                await cmd.ExecuteNonQueryAsync();
+                return true;
+            }
+            finally
+            {
+                cmd?.Dispose();
+            }
+        }
+        public async Task<IList<Admin>> GetAll()
+        {
+            SqlConnection conn = null;
+            SqlCommand cmd = null;
+            try
+            {
+                conn = GetConnection();
+                cmd = GetSqlCommand(conn, "dbo.gen_Admin_GetAll", true);
+                IList<Admin> tmp = new List<Admin>();
+                IDataReader reader = await ExecuteReaderAsync(cmd);
+                Fill(reader, tmp, 0, 0);
+                if (!reader.IsClosed) reader.Close();
+                return tmp;
+            }
+            finally
+            {
+                conn?.Dispose();
+                cmd?.Dispose();
+            }
+        }
+        public async Task<bool> Insert(Admin entity)
+        {
+            SqlConnection conn = null;
+            try
+            {
+                conn = GetConnection();
+                return await Insert(entity, conn);
+            }
+            finally
+            {
+                conn?.Dispose();
+            }
+        }
+        public async Task<bool> Insert(Admin entity, SqlConnection conn)
+        {
+            SqlCommand cmd = null;
+            try
+            {
+                cmd = GetSqlCommand(conn, "dbo.gen_Admin_Insert", true);
+                cmd.Parameters.Add(GetOutParameter("@AdminId", SqlDbType.Int));
+                cmd.Parameters.Add(GetInParameter("@CreatedBy", SqlDbType.Int, entity.CreatedBy));
+                cmd.Parameters.Add(GetInParameter("@FirstName", SqlDbType.NVarChar, entity.FirstName));
+                await cmd.ExecuteNonQueryAsync();
+                entity.AdminId = (Int32)cmd.Parameters["@AdminId"].Value;
+                entity.AcceptChanges();
+                return true;
+            }
+            finally
+            {
+                cmd?.Dispose();
+            }
+        }
+        public async Task<bool> Update(Admin entity)
+        {
+            SqlConnection conn = null;
+            try
+            {
+                conn = GetConnection();
+                return await Update(entity, conn);
+            }
+            finally
+            {
+                conn?.Dispose();
+            }
+        }
+        public async Task<bool> Update(Admin entity, SqlConnection conn)
+        {
+            SqlCommand cmd = null;
+            try
+            {
+                cmd = GetSqlCommand(conn, "dbo.gen_Admin_Update", true);
+                cmd.Parameters.Add(GetInParameter("@AdminId", SqlDbType.Int, entity.AdminId));
+                cmd.Parameters.Add(GetInParameter("@CreatedBy", SqlDbType.Int, entity.CreatedBy));
+                cmd.Parameters.Add(GetInParameter("@FirstName", SqlDbType.NVarChar, entity.FirstName));
+                await cmd.ExecuteNonQueryAsync();
+                entity.AcceptChanges();
+                return true;
+            }
+            finally
+            {
+                cmd?.Dispose();
+            }
+        }
+        public async Task<int> Update(IList<Admin> entities)
+        {
+            SqlConnection conn = null;
+            try
+            {
+                conn = GetConnection();
+                int count = 0;
+                foreach (var entity in entities)
+                {
+                    if (entity.RowState == EntityState.Modified)
+                    {
+                        if (await Update(entity, conn))
+                        {
+                            count++;
 
-       }
-       }
-        else if (entity.RowState == EntityState.New) 
-       {
-        if (await Insert(entity, conn))
-       {
-       count++;
+                        }
+                    }
+                    else if (entity.RowState == EntityState.New)
+                    {
+                        if (await Insert(entity, conn))
+                        {
+                            count++;
 
-       }
-       }
-        else if (entity.RowState == EntityState.Deleted) 
-       {
-        if (await Delete(entity, conn))
-       {
-       count++;
+                        }
+                    }
+                    else if (entity.RowState == EntityState.Deleted)
+                    {
+                        if (await Delete(entity, conn))
+                        {
+                            count++;
 
-       }
-       }
-      }
-         return count; 
-      }
-        finally 
-       { 
-        conn?.Dispose();
-       }       }
+                        }
+                    }
+                }
+                return count;
+            }
+            finally
+            {
+                conn?.Dispose();
+            }
+        }
     }
 }
 
