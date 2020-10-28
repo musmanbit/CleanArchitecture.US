@@ -11,20 +11,19 @@ namespace CleanArchitecture.US.Common.Serilog
 {
     public class LoggerManager : ILoggerManager
     {
-        public LoggerManager()
+        private IConfiguration Configuration;
+        public LoggerManager(IConfiguration configuration)
         {
+            Configuration = configuration;
             InitializeLogger();
         }
 
         private void InitializeLogger()
         {
-            var config = new ConfigurationBuilder()
-                 .AddJsonFile("appsettings.json")
-                .Build();
-            FluentdSinkOptions sinkOptions = new FluentdSinkOptions("localhost", 8080);
-            sinkOptions.Tag = "myapp.access";
+            FluentdSinkOptions sinkOptions = new FluentdSinkOptions(Configuration.GetSection("Fluentd:Uri").Value,Convert.ToInt32( Configuration.GetSection("Fluentd:Port").Value));
+            sinkOptions.Tag = Configuration.GetSection("Fluentd:Tag").Value;
             Log.Logger = new LoggerConfiguration()
-                  .ReadFrom.Configuration(config)
+                  .ReadFrom.Configuration(Configuration)
                  .WriteTo.Fluentd(sinkOptions, LogEventLevel.Debug)
                  .CreateLogger();
         }
