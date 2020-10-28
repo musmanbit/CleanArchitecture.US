@@ -1,6 +1,6 @@
 ﻿namespace CleanArchitecture.US.ViewModel
 {
-    public class Class1
+    public class tmp
     {
     }
 }
