@@ -27,6 +27,7 @@ namespace CleanArchitecture.US.API.Payments
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.RegisterSeriLogLogging();
             services.RegisterSwagger("Credit Card Payment API", "Payment service to process the payments");
         }
 

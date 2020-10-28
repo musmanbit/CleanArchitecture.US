@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Web;
 using Microsoft.Extensions.Hosting;
 using CleanArchitecture.US.Common.NLog;
-
+using Serilog;
 
 namespace CleanArchitecture.US.Common.Extensions
 {
@@ -146,7 +146,7 @@ namespace CleanArchitecture.US.Common.Extensions
             return services;
         }
 
-        public static IHostBuilder ConfigureLogging(this IHostBuilder hostBuilder)
+        public static IHostBuilder ConfigureNlogLogging(this IHostBuilder hostBuilder)
         {
             //NLog
             hostBuilder.ConfigureLogging(logging =>
@@ -161,12 +161,22 @@ namespace CleanArchitecture.US.Common.Extensions
 
             return hostBuilder;
         }
+        public static IHostBuilder ConfigureSeriLogLogging(this IHostBuilder hostBuilder)
+        {
+            hostBuilder.UseSerilog();
+            return hostBuilder;
+        }
 
-    
 
-        public static IServiceCollection RegisterLogging(this IServiceCollection services)
+
+        public static IServiceCollection RegisterNlogLogging(this IServiceCollection services)
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
+            return services;
+        }
+        public static IServiceCollection RegisterSeriLogLogging(this IServiceCollection services)
+        {
+            services.AddSingleton<Serilog.ILoggerManager, Serilog.LoggerManager>();
             return services;
         }
     }

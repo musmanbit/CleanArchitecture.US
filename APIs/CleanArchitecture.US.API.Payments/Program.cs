@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using CleanArchitecture.US.Common.Serilog;
+using CleanArchitecture.US.Common.Extensions;
 
 namespace CleanArchitecture.US.API.Payments
 {
@@ -18,6 +19,7 @@ namespace CleanArchitecture.US.API.Payments
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            .ConfigureSeriLogLogging()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
