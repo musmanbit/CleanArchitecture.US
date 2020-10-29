@@ -37,7 +37,7 @@ namespace CleanArchitecture.US.API.Payments.Controllers
             {
                 int i = 9;
                 int d = 0;
-                //var g = i / d;
+                var g = i / d;
                 var rng = new Random();
                 return Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {

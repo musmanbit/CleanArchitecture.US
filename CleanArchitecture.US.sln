@@ -5,31 +5,33 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{8EADCF93-1470-42DB-8070-275C4008AA1C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Application", "CleanArchitecture.US.Application\CleanArchitecture.US.Application.csproj", "{DE03D7E7-4F00-4320-8418-3004A3C44DF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Application", "src\CleanArchitecture.US.Application\CleanArchitecture.US.Application.csproj", "{DE03D7E7-4F00-4320-8418-3004A3C44DF2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Infrastructure", "CleanArchitecture.US.Infrastructure\CleanArchitecture.US.Infrastructure.csproj", "{EED771C6-3885-4441-B53A-38F7A5B5A4D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Infrastructure", "src\CleanArchitecture.US.Infrastructure\CleanArchitecture.US.Infrastructure.csproj", "{EED771C6-3885-4441-B53A-38F7A5B5A4D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Common", "CleanArchitecture.US.Common\CleanArchitecture.US.Common.csproj", "{00815DC3-E6FC-457A-8A0F-0073AA4AF50F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Common", "src\CleanArchitecture.US.Common\CleanArchitecture.US.Common.csproj", "{00815DC3-E6FC-457A-8A0F-0073AA4AF50F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.API.Authentication", "APIs\CleanArchitecture.US.API.Authentication\CleanArchitecture.US.API.Authentication.csproj", "{02112EE8-F587-4469-A4FA-002695352FDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.API.Authentication", "src\APIs\CleanArchitecture.US.API.Authentication\CleanArchitecture.US.API.Authentication.csproj", "{02112EE8-F587-4469-A4FA-002695352FDF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A056A784-B47F-49E6-86C8-D97083D05224}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{94C87D4C-A889-4CB1-B13C-D6E564AEB6C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.ViewModel", "CleanArchitecture.US.ViewModel\CleanArchitecture.US.ViewModel.csproj", "{0BCCB137-5A82-49D7-9AC0-2E950B3E529E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.ViewModel", "src\CleanArchitecture.US.ViewModel\CleanArchitecture.US.ViewModel.csproj", "{0BCCB137-5A82-49D7-9AC0-2E950B3E529E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Domain", "CleanArchitecture.US.Domain\CleanArchitecture.US.Domain.csproj", "{5B9A588C-A828-4D47-A678-0F31380EAE17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Domain", "src\CleanArchitecture.US.Domain\CleanArchitecture.US.Domain.csproj", "{5B9A588C-A828-4D47-A678-0F31380EAE17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Tests.Admin", "Tests\UnitTests\CleanArchitecture.US.Tests.Admin\CleanArchitecture.US.Tests.Admin.csproj", "{7FF95DD7-5240-4772-92B8-2C461970C4F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Tests.Admin", "src\Tests\UnitTests\CleanArchitecture.US.Tests.Admin\CleanArchitecture.US.Tests.Admin.csproj", "{7FF95DD7-5240-4772-92B8-2C461970C4F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{45B50875-53DC-472C-A392-29022EE89652}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.API.Authentication.IntegrationTest", "Tests\IntegrationTests\CleanArchitecture.US.API.Authentication.IntegrationTest\CleanArchitecture.US.API.Authentication.IntegrationTest.csproj", "{53E96C96-FF44-45A3-B97B-5317936C7515}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.API.Authentication.IntegrationTest", "src\Tests\IntegrationTests\CleanArchitecture.US.API.Authentication.IntegrationTest\CleanArchitecture.US.API.Authentication.IntegrationTest.csproj", "{53E96C96-FF44-45A3-B97B-5317936C7515}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{623BA06E-E75D-4950-8985-2621910C8BF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.API.Payments", "APIs\CleanArchitecture.US.API.Payments\CleanArchitecture.US.API.Payments.csproj", "{ED3AD089-4E12-4302-89B3-24777BC02F41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.API.Payments", "src\APIs\CleanArchitecture.US.API.Payments\CleanArchitecture.US.API.Payments.csproj", "{ED3AD089-4E12-4302-89B3-24777BC02F41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{144B300F-9257-4348-B201-8E133DAB543E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,7 +80,13 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{8EADCF93-1470-42DB-8070-275C4008AA1C} = {144B300F-9257-4348-B201-8E133DAB543E}
+		{DE03D7E7-4F00-4320-8418-3004A3C44DF2} = {144B300F-9257-4348-B201-8E133DAB543E}
+		{EED771C6-3885-4441-B53A-38F7A5B5A4D7} = {144B300F-9257-4348-B201-8E133DAB543E}
+		{00815DC3-E6FC-457A-8A0F-0073AA4AF50F} = {144B300F-9257-4348-B201-8E133DAB543E}
 		{02112EE8-F587-4469-A4FA-002695352FDF} = {8EADCF93-1470-42DB-8070-275C4008AA1C}
+		{A056A784-B47F-49E6-86C8-D97083D05224} = {144B300F-9257-4348-B201-8E133DAB543E}
+		{94C87D4C-A889-4CB1-B13C-D6E564AEB6C3} = {144B300F-9257-4348-B201-8E133DAB543E}
 		{0BCCB137-5A82-49D7-9AC0-2E950B3E529E} = {94C87D4C-A889-4CB1-B13C-D6E564AEB6C3}
 		{5B9A588C-A828-4D47-A678-0F31380EAE17} = {94C87D4C-A889-4CB1-B13C-D6E564AEB6C3}
 		{7FF95DD7-5240-4772-92B8-2C461970C4F0} = {623BA06E-E75D-4950-8985-2621910C8BF7}
