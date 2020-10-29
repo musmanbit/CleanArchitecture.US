@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.US.Common.NLog;
+﻿using CleanArchitecture.US.Common.Serilog;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Data;

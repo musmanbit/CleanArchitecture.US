@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using CleanArchitecture.US.Domain;
 using System.Transactions;
 using CleanArchitecture.US.Infrastructure;
-using CleanArchitecture.US.Common.NLog;
+using CleanArchitecture.US.Common.Serilog;
 
 #endregion
 

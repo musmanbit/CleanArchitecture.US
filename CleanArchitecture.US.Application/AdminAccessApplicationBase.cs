@@ -7,11 +7,10 @@ using System.Transactions;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using CleanArchitecture.US.Domain;
 using CleanArchitecture.US.Common;
-using CleanArchitecture.US.Common.NLog;
+using CleanArchitecture.US.Common.Serilog;
 using CleanArchitecture.US.Application.Interface;
 using CleanArchitecture.US.Infrastructure.Interface;
 
@@ -35,6 +34,7 @@ namespace CleanArchitecture.US.Application
       #region Methods
        public async Task<AdminAccess> Save(AdminAccess entity, bool createTransaction) 
       {
+        Logger.LogEnter();
         TransactionScope scope = null;
           try
          { 
@@ -49,16 +49,14 @@ namespace CleanArchitecture.US.Application
           finally 
          { 
           scope?.Dispose();
+         Logger.LogExit();
          } 
           return entity; 
       }
       [DataObjectMethod(DataObjectMethodType.Update)]
        internal async Task<AdminAccess> Save(AdminAccess entity ) 
       {
-        if (!entity.IsValid())
-        {
-          //throw new DataValidationException();
-        }
+        Logger.LogEnter();
            switch (entity.RowState) 
            { 
            case EntityState.New: 
@@ -71,10 +69,12 @@ namespace CleanArchitecture.US.Application
            await _adminaccessInfrastructure.Delete(entity); 
             break; 
            } 
+         Logger.LogExit();
           return entity; 
       }
        public async Task<IList<AdminAccess>> Save(IList<AdminAccess> entityCollection, bool createTransaction) 
       {
+        Logger.LogEnter();
         TransactionScope scope = null;
           try
          { 
@@ -89,46 +89,81 @@ namespace CleanArchitecture.US.Application
           finally 
          { 
           scope?.Dispose();
+         Logger.LogExit();
          } 
           return entityCollection; 
       }
       [DataObjectMethod(DataObjectMethodType.Update)]
        internal async Task<IList<AdminAccess>>  Save( IList<AdminAccess> entityCollection) 
       {
-         bool isAllValid = true; 
+        Logger.LogEnter();
+          try
+         { 
           foreach (var entity in entityCollection) 
         {
-           if (!entity.IsValid()) isAllValid = false; 
-        }
-        if (!isAllValid)
-        {
-          //throw new DataValidationException();
-        }
            await _adminaccessInfrastructure.Update(entityCollection);  
+         } 
+         } 
+          finally 
+         { 
+         Logger.LogExit();
+         } 
           return entityCollection; 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<AdminAccess> GetById(Int32  adminAccessId) 
       {
+        Logger.LogEnter();
+          try
+         { 
          var entity = await _adminaccessInfrastructure.GetById(adminAccessId); 
          if(entity == null) return  new AdminAccess();
            return entity; 
+         } 
+          finally 
+         { 
+         Logger.LogExit();
+         } 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<IList<AdminAccess>> GetListByForeignKeyAdminId(Int32 adminId) 
       {
+        Logger.LogEnter();
+          try
+         { 
          return await _adminaccessInfrastructure.GetListByForeignKeyAdminId(adminId); 
+         } 
+          finally 
+         { 
+         Logger.LogExit();
+         } 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<IList<AdminAccess>> GetListByForeignKeyUserId(Int32 userId) 
       {
+        Logger.LogEnter();
+          try
+         { 
          return await _adminaccessInfrastructure.GetListByForeignKeyUserId(userId); 
+         } 
+          finally 
+         { 
+         Logger.LogExit();
+         } 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<IList<AdminAccess>> GetAll() 
       {
+        Logger.LogEnter();
+          try
+         { 
          var collection = await _adminaccessInfrastructure.GetAll();
           return collection; 
+         } 
+          finally 
+         { 
+         Logger.LogExit();
+         } 
       }
       #endregion
     }

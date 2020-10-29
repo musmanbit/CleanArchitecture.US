@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using CleanArchitecture.US.Infrastructure.Interface;
 using CleanArchitecture.US.Application.Interface;
-using CleanArchitecture.US.Common.NLog;
+using CleanArchitecture.US.Common.Serilog;
 
 #endregion
 

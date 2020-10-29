@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using CleanArchitecture.US.Domain;
 using CleanArchitecture.US.Common;
-using CleanArchitecture.US.Common.NLog;
+using CleanArchitecture.US.Common.Serilog;
 using CleanArchitecture.US.Application.Interface;
 using CleanArchitecture.US.Infrastructure.Interface;
 
@@ -34,6 +34,7 @@ namespace CleanArchitecture.US.Application
       #region Methods
        public async Task<Admin> Save(Admin entity, bool createTransaction) 
       {
+        Logger.LogEnter();
         TransactionScope scope = null;
           try
          { 
@@ -48,16 +49,14 @@ namespace CleanArchitecture.US.Application
           finally 
          { 
           scope?.Dispose();
+         Logger.LogExit();
          } 
           return entity; 
       }
       [DataObjectMethod(DataObjectMethodType.Update)]
        internal async Task<Admin> Save(Admin entity ) 
       {
-        if (!entity.IsValid())
-        {
-          //throw new DataValidationException();
-        }
+        Logger.LogEnter();
            switch (entity.RowState) 
            { 
            case EntityState.New: 
@@ -70,10 +69,12 @@ namespace CleanArchitecture.US.Application
            await _adminInfrastructure.Delete(entity); 
             break; 
            } 
+         Logger.LogExit();
           return entity; 
       }
        public async Task<IList<Admin>> Save(IList<Admin> entityCollection, bool createTransaction) 
       {
+        Logger.LogEnter();
         TransactionScope scope = null;
           try
          { 
@@ -88,36 +89,55 @@ namespace CleanArchitecture.US.Application
           finally 
          { 
           scope?.Dispose();
+         Logger.LogExit();
          } 
           return entityCollection; 
       }
       [DataObjectMethod(DataObjectMethodType.Update)]
        internal async Task<IList<Admin>>  Save( IList<Admin> entityCollection) 
       {
-         bool isAllValid = true; 
+        Logger.LogEnter();
+          try
+         { 
           foreach (var entity in entityCollection) 
         {
-           if (!entity.IsValid()) isAllValid = false; 
-        }
-        if (!isAllValid)
-        {
-          //throw new DataValidationException();
-        }
            await _adminInfrastructure.Update(entityCollection);  
+         } 
+         } 
+          finally 
+         { 
+         Logger.LogExit();
+         } 
           return entityCollection; 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<Admin> GetById(Int32  adminId) 
       {
+        Logger.LogEnter();
+          try
+         { 
          var entity = await _adminInfrastructure.GetById(adminId); 
          if(entity == null) return  new Admin();
            return entity; 
+         } 
+          finally 
+         { 
+         Logger.LogExit();
+         } 
       }
       [DataObjectMethod(DataObjectMethodType.Select)]
        public async Task<IList<Admin>> GetAll() 
       {
+        Logger.LogEnter();
+          try
+         { 
          var collection = await _adminInfrastructure.GetAll();
           return collection; 
+         } 
+          finally 
+         { 
+         Logger.LogExit();
+         } 
       }
       #endregion
     }
