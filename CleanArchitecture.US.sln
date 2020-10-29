@@ -21,11 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.ViewMo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Domain", "CleanArchitecture.US.Domain\CleanArchitecture.US.Domain.csproj", "{5B9A588C-A828-4D47-A678-0F31380EAE17}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{70FE85A0-72D9-403C-9E35-0A6B271924CE}"
-	ProjectSection(SolutionItems) = preProject
-		sonarqube.txt = sonarqube.txt
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.US.Tests.Admin", "Tests\UnitTests\CleanArchitecture.US.Tests.Admin\CleanArchitecture.US.Tests.Admin.csproj", "{7FF95DD7-5240-4772-92B8-2C461970C4F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{45B50875-53DC-472C-A392-29022EE89652}"
